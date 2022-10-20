@@ -8,12 +8,15 @@ from .views import BBPasswordChangeView
 from .views import RegisterUserView, RegisterDoneView
 from .views import user_activate
 from .views import DeleteUserView
+from . import views
 
 
 app_name = 'main'
 
 urlpatterns = [
     path('', index, name='index'),
+    path('orders/', views.OrderListView.as_view(), name='orders'),
+    path('order/<int:pk>', views.OrderDetailView.as_view(), name='order-detail'),
     path('accounts/login', BBLoginView.as_view(), name='login'),
     path('accounts/profile/', profile, name='profile'),
     path('accounts/logout/', BBLogoutView.as_view(), name='logout'),
@@ -27,12 +30,3 @@ urlpatterns = [
 
 ]
 
-#СОЗДАНИЕ ЗАЯВКИ
-#from django.urls import path
-
-# importing views from views..py
-#from .views import GeeksCreate
-
-#urlpatterns = [
-#    path('', GeeksCreate.as_view()),
-#]

@@ -8,7 +8,7 @@ from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import UpdateView
 from .forms import ChangeUserInfoForm
-from .models import AdvUser
+from .models import AdvUser, Order
 from django.contrib.auth.views import PasswordChangeView
 from django.views.generic import CreateView
 
@@ -122,16 +122,13 @@ class DeleteUserView(LoginRequiredMixin, DeleteView):
         return get_object_or_404(queryset, pk=self.user_id)
 
 
-
-#СОЗДАНИЕ ЗАЯВКИ
-#from django.views.generic.edit import CreateView
-#from .models import GeeksModel
+from django.views import generic
 
 
-#class GeeksCreate(CreateView):
-    # specify the model for create view
-#    model = GeeksModel
+class OrderListView(generic.ListView):
+    model = Order
+    paginate_by = 2
 
-    # specify the fields to be displayed
 
- #   fields = ['title', 'description']
+class OrderDetailView(generic.DetailView):
+    model = Order

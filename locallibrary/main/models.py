@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.urls import reverse
 
 from django.dispatch import Signal
 
@@ -19,19 +20,20 @@ class AdvUser(AbstractUser):
     is_activated = models.BooleanField(default=True, db_index=True)
 
 
-#  СОЗДАНИЕ ЗАЯВКИ
-# import the standard Django Model
-# from built-in library
-from django.db import models
+class Category(models.Model):
+    name = models.CharField(max_length=200, help_text='Enter category)')
+
+    def __str__(self):
+        return self.name
 
 
-# declare a new model with a name "GeeksModel"
-#class GeeksModel(models.Model):
-    # fields of the model
- #   title = models.CharField(max_length=200)
-   # description = models.TextField()
+class Order(models.Model):
+    title = models.CharField(max_length=200)
+    summary = models.TextField(max_length=1000, help_text='Описание')
+    Category = models.ManyToManyField(Category, help_text='Выберете категорию')
 
-    # renames the instances of the model
-    # with their title name
-   # def __str__(self):
-     #   return self.title
+    def __str__(self):
+        return self.title
+
+    def get_absolute_url(self):
+        return reverse('order-detail', args=[str(self.id)])

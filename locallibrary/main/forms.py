@@ -2,6 +2,8 @@ from django import forms
 from django.contrib.auth import password_validation
 from django.core.exceptions import ValidationError
 from .models import user_registrated
+from django.urls import reverse
+from django.db import models
 
 from .models import AdvUser
 
@@ -13,6 +15,10 @@ class ChangeUserInfoForm(forms.ModelForm):
     class Meta:
         model = AdvUser
         fields = ('username', 'email', 'first_name', 'last_name')
+
+
+class Category:
+    pass
 
 
 class RegisterUserForm(forms.ModelForm):
